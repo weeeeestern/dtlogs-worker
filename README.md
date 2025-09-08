@@ -2,18 +2,36 @@
 
 Cloudflare Worker for Slack interactions.
 
-## Rate limiting
+## Slack setup
 
-All `/slack/*` endpoints are protected by a D1-backed rate limiter.
-It tracks request attempts per user in the `request_log` table and
-returns **429 Too Many Requests** when the number of attempts exceeds
-the allowed threshold in the configured window.
+Configure three slash commands pointing to the deployed worker:
 
-Environment variables:
+- `/카테고리` → `https://dtlogs.weeeeestern.workers.dev/slack/category`
+- `/정리` → `https://dtlogs.weeeeestern.workers.dev/slack/summary`
+- `/초기화` → `https://dtlogs.weeeeestern.workers.dev/slack/reset`
 
-- `RATE_LIMIT_MAX` (default `5`) – maximum requests allowed per user
-  within the window.
-- `RATE_LIMIT_WINDOW` (default `60`) – window size in seconds.
+## Secrets
+
+Set the following secrets in the worker environment (values omitted):
+
+```
+SLACK_BOT_TOKEN
+SLACK_SIGNING_SECRET
+CHANNEL_ID
+
+GITHUB_TOKEN
+GITHUB_OWNER=weeeeestern
+GITHUB_REPO=daily-tech-logs
+GITHUB_DEFAULT_BRANCH=develop
+
+GEMINI_API_KEY
+LLM_MODEL_KEYWORDS=gemini-1.5-flash
+
+TAVILY_API_KEY
+ALLOWED_SITES
+DAYS_LIMIT=1460
+LANG_THRESHOLD=0.9
+```
 
 ## Deployment
 
