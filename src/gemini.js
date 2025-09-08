@@ -4,6 +4,7 @@ export async function extractKeywords(env, text) {
   const prompt = `Extract 5-8 comma-separated lower-case keywords from the following text:\n${text}`;
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), 8000);
+
   try {
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`,
@@ -15,6 +16,7 @@ export async function extractKeywords(env, text) {
       }
     );
     clearTimeout(id);
+
     const data = await res.json();
     return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || 'to_fill';
   } catch (e) {

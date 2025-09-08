@@ -27,6 +27,7 @@ export async function logRequest(db, { userId, path, method, note }) {
     .run();
 }
 
+
 export async function pickQuestion(db, userId, category, allQuestions) {
   const { results } = await db
     .prepare('SELECT question FROM question_history WHERE user_id = ? AND category = ?')
@@ -40,7 +41,9 @@ export async function pickQuestion(db, userId, category, allQuestions) {
 }
 
 export async function recordHistory(db, { userId, category, question, link, status }) {
+
   const createdAt = Math.floor(Date.now() / 1000);
+
   await db
     .prepare(
       'INSERT INTO question_history (user_id, category, question, link, status, created_at) VALUES (?, ?, ?, ?, ?, ?)'
@@ -50,8 +53,10 @@ export async function recordHistory(db, { userId, category, question, link, stat
 }
 
 export async function resetHistory(db, userId, category) {
+
   await db
     .prepare('DELETE FROM question_history WHERE user_id = ? AND category = ?')
+
     .bind(userId, category)
     .run();
 }

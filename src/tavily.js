@@ -2,6 +2,7 @@ export async function search(question, env) {
   if (!env.TAVILY_API_KEY) return '<TO_FILL:TAVILY_API_KEY>';
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), 8000);
+
   try {
     const body = {
       api_key: env.TAVILY_API_KEY,
