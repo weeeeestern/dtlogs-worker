@@ -1,5 +1,8 @@
 export async function search(question, env) {
   if (!env.TAVILY_API_KEY) return '<TO_FILL:TAVILY_API_KEY>';
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), 8000);
+
   try {
     const body = {
       api_key: env.TAVILY_API_KEY,
@@ -12,8 +15,10 @@ export async function search(question, env) {
     const res = await fetch('https://api.tavily.com/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      signal: controller.signal
     });
+    clearTimeout(id);
     const data = await res.json();
     return data.results?.[0]?.url || '<검색 결과 없음>';
   } catch (e) {

@@ -1,19 +1,22 @@
 CREATE TABLE IF NOT EXISTS question_history(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id TEXT NOT NULL,
-  category TEXT NOT NULL,
-  question TEXT NOT NULL,
+  user_id TEXT,
+  category TEXT,
+  question TEXT,
   link TEXT,
-  status TEXT NOT NULL,
-  created_at TEXT NOT NULL
+  status TEXT,
+  created_at INTEGER
 );
-CREATE UNIQUE INDEX IF NOT EXISTS uq_user_cat_q
-ON question_history(user_id, category, question);
+
+CREATE INDEX IF NOT EXISTS idx_history_user_cat
+ON question_history(user_id, category);
 
 CREATE TABLE IF NOT EXISTS request_log(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id TEXT NOT NULL,
-  requested_at INTEGER NOT NULL
+  user_id TEXT,
+  path TEXT,
+  method TEXT,
+  requested_at INTEGER,
+  note TEXT
 );
-CREATE INDEX IF NOT EXISTS idx_request_log_user_time
+CREATE INDEX IF NOT EXISTS idx_log_user_time
+
 ON request_log(user_id, requested_at);
