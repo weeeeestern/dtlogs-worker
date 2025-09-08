@@ -7,6 +7,6 @@ account_id = "7febaff00764d1a1d9b4ebb8b095df51"
 crons = ["0 0 * * *"]  # KST 09:00
 
 [[d1_databases]]
-binding = "dtlogs_db"
+binding = "DB"
 database_name = "dtlogs-db"
 database_id = "0614bd30-1c0b-40a2-98de-34efa2b54247"
