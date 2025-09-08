@@ -76,6 +76,7 @@ async function handleReset(data, env) {
 
 function parseRequest(contentType, body) {
   return parseSlackBody(contentType, body);
+
 }
 
 export default {
@@ -88,20 +89,23 @@ export default {
       if (!valid) return new Response('invalid', { status: 401 });
       const data = parseRequest(req.headers.get('content-type') || '', body);
       const userId = data.user_id || data.userId || data.user?.id;
+
       if (userId) {
         const limit = parseInt(env.RATE_LIMIT_MAX || '5', 10);
         const windowSec = parseInt(env.RATE_LIMIT_WINDOW || '60', 10);
         const blocked = await isRateLimited(env.DB, userId, limit, windowSec);
         if (blocked) return new Response('Too Many Requests', { status: 429 });
       }
+
       if (req.method === 'POST' && url.pathname === '/slack/category') return handleCategory(data, env);
       if (req.method === 'POST' && url.pathname === '/slack/summary') return handleSummary(data, env);
       if (req.method === 'POST' && url.pathname === '/slack/reset') return handleReset(data, env);
     }
+
     return new Response('not found', { status: 404 });
   },
   async scheduled(event, env) {
-    const text = '🧠 오늘 학습할 백엔드 면접 카테고리를 선택해주세요!\n예시: Spring, JVM, Database, Redis, HTTP …\n👉 `/카테고리 Spring` 처럼 입력해.';
+    const text = '🧠 오늘 학습할 백엔드 면접 카테고리를 선택해주세요!\n예시: Spring, JPA, Java, JVM, Database, Redis, HTTP, Network, OS, Security, SystemDesign, DevOps, Concurrency, DataStructure & Algorithm, SoftwareDesign, Testing \n👉 `/카테고리 Spring` 처럼 입력해.';
     await postMessage(env.SLACK_BOT_TOKEN, env.CHANNEL_ID, text);
   }
 };
