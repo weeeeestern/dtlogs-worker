@@ -12,6 +12,6 @@ database_name = "dtlogs-db"
 database_id = "0614bd30-1c0b-40a2-98de-34efa2b54247"
 
 [vars]
-ALLOWED_SITES = ""
+ALLOWED_SITES = "engineering.atspotify.com,dropbox.tech,slack.engineering,stripe.com,developer.apple.com,netflixtechblog.com,engineering.fb.com,developers.googleblog.com"
 DAYS_LIMIT = "1460"
 LANG_THRESHOLD = "0.9"
