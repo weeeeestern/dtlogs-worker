@@ -33,10 +33,12 @@ DAYS_LIMIT=1460
 LANG_THRESHOLD=0.9
 ```
 
-`ALLOWED_SITES` is prepopulated with domains from several English corporate
-engineering blogs (Spotify, Dropbox, Slack, Stripe, Apple, Netflix, Meta and
-Google). Modify the comma-separated list in `wrangler.toml` to customize the
-sources that Tavily will search.
+`ALLOWED_SITES` is prepopulated with domains from a wide range of English
+corporate engineering blogs (Spotify, Netflix, Uber, Airbnb, Shopify, Slack,
+Cloudflare, Google, AWS, Microsoft, Spring, GitHub, LinkedIn, Meta, Confluent,
+HashiCorp, Databricks, Grafana, Datadog, Elastic, Kubernetes, Istio, NGINX,
+Redis, Dropbox, Stripe and Apple). Modify the comma-separated list in
+`wrangler.toml` to customize the sources that Tavily will search.
 
 ## Deployment
 
