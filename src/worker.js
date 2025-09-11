@@ -31,6 +31,7 @@ async function processCategory({ user_id, text, response_url, trigger_id }, env)
       return;
     }
     const { url: link, reason } = await search(question, env);
+
     await postMessage(token, channel, `📘 오늘의 질문: ${question}\n🔗 블로그 링크: ${link}\n👉 \`/정리\`로 오늘 학습 내용을 정리해!`);
     await recordHistory(env.DB, { userId, category, question, link, status: 'PRESENTED' });
     if (response_url) {
@@ -111,6 +112,7 @@ export default {
     if (url.pathname.startsWith('/slack/')) {
       const body = await req.text();
       const valid = await verifySlackRequest(req, body, env);
+
       if (!valid) {
         console.log('signature invalid');
         await logRequest(env.DB, { userId: '', path: url.pathname, method: req.method, note: 'invalid-signature' });
@@ -147,7 +149,7 @@ export default {
   async scheduled(event, env, ctx) {
     if (!schemaReady) schemaReady = ensureSchema(env.DB);
     await schemaReady;
-    const text = '🧠 오늘 학습할 백엔드 면접 카테고리를 선택해주세요!\n예시: Spring, JVM, Database, Redis, HTTP …\n👉 `/카테고리 Spring` 처럼 입력해.';
+    const text = '🧠 오늘 학습할 백엔드 면접 카테고리를 선택해주세요!\n예시: Spring, JPA, Java, JVM, Database, Redis, HTTP, Network, OS, Security, SystemDesign, DevOps, Concurrency, DataStructure & Algorithm, SoftwareDesign, Testing \n👉 `/카테고리 Spring` 처럼 입력해.';
     try {
       await postMessage(env.SLACK_BOT_TOKEN, env.CHANNEL_ID, text);
     } catch (e) {

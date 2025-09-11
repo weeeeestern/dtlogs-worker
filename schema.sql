@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS question_history(
   status TEXT,
   created_at INTEGER
 );
+
 CREATE INDEX IF NOT EXISTS idx_history_user_cat
 ON question_history(user_id, category);
 

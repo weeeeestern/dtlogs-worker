@@ -24,6 +24,7 @@ export async function search(question, env) {
       signal: controller.signal
     });
     clearTimeout(id);
+
     if (!res.ok) {
       console.log('tavily.res', { status: res.status, hasUrl: false });
       return { url: '<검색 실패>', reason: `http-${res.status}` };

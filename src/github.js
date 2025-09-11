@@ -28,6 +28,7 @@ export async function createTechLog(env, { date, category, markdown }) {
     'Content-Type': 'application/json',
     'User-Agent': 'dtlogs-worker'
   };
+
   try {
     const refRes = await fetchWithTimeout(`${API}/repos/${owner}/${repo}/git/refs/heads/${base}`, { headers });
     const refData = await refRes.json();
