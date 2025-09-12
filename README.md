@@ -35,22 +35,10 @@ MIN_WORDS=1000
 MAX_WORDS=4000
 ```
 
-`ALLOWED_SITES` is prepopulated with domains from a wide range of English
-corporate engineering blogs (Spotify, Netflix, Uber, Airbnb, Shopify, Slack,
-Cloudflare, Google, AWS, Azure, GitHub, LinkedIn, Meta, Confluent, HashiCorp,
-Databricks, Grafana, Datadog, Elastic, Kubernetes, Istio, NGINX, Redis,
-Dropbox and Stripe). Modify the comma-separated list in
-`wrangler.toml` to customize the sources that Tavily will search. The worker
-splits the allowlist into batches of ten domains per Tavily request to avoid
-API limits. Queries are
-expanded with intent keywords ("deep dive", "case study", "architecture",
-"postmortem", "lessons learned", "guide", "explanation", "best practices") and
-exclude release-style terms. Results are scored by URL path, language and
-domain and must have a blog-like path (e.g. `/blog/`, `/engineering/`).
-Candidate pages are fetched and discarded unless they contain 1,000–4,000
-words, several section headings, code snippets and at least one of the intent
-keywords. If no suitable article is found, the worker retries with advanced
-search depth and finally with a small set of fallback sources.
+`ALLOWED_SITES` is optional; if omitted a default list of well known
+company engineering blogs (Netflix, Uber, Dropbox, Airbnb, Stripe,
+Google Cloud, AWS, Spotify and Meta) will be used.
+
 
 ## Deployment
 
