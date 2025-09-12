@@ -37,8 +37,12 @@ MAX_WORDS=4000
 
 `ALLOWED_SITES` is optional; if omitted a default list of well known
 company engineering blogs (Netflix, Uber, Dropbox, Airbnb, Stripe,
-Google Cloud, AWS, Spotify and Meta) will be used.
+Google Cloud, AWS, Spotify, Meta, Cloudflare, LinkedIn, Slack, Shopify,
+MongoDB and Salesforce) will be used.
 
+The worker prefers posts containing deep‑dive keywords and 1k‑3k words
+but will fall back to the first sufficiently long English article when
+no deep‑dive match is found.
 
 ## Deployment
 
