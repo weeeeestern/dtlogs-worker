@@ -38,8 +38,15 @@ export function parseSlackBody(contentType, body) {
   }
 }
 
+function fetchWithTimeout(url, options = {}, ms = 8000) {
+  const ctrl = new AbortController();
+  const id = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { ...options, signal: ctrl.signal })
+    .finally(() => clearTimeout(id));
+}
+
 async function slackFetch(token, method, payload) {
-  const res = await fetch(`https://slack.com/api/${method}`, {
+  const res = await fetchWithTimeout(`https://slack.com/api/${method}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -82,7 +89,7 @@ export async function openCategoryModal(token, triggerId, categories) {
 }
 
 export async function sendResponseUrl(url, text) {
-  await fetch(url, {
+  await fetchWithTimeout(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text })
