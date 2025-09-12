@@ -12,6 +12,8 @@ database_name = "dtlogs-db"
 database_id = "0614bd30-1c0b-40a2-98de-34efa2b54247"
 
 [vars]
-ALLOWED_SITES = ""
+ALLOWED_SITES = "engineering.atspotify.com,netflixtechblog.com,eng.uber.com,airbnb.io,shopify.engineering,slack.engineering,blog.cloudflare.com,cloud.google.com,aws.amazon.com,azure.microsoft.com,github.blog,engineering.linkedin.com,engineering.fb.com,confluent.io,hashicorp.com,databricks.com,grafana.com,datadoghq.com,elastic.co,kubernetes.io,istio.io,nginx.com,redis.io,dropbox.tech,stripe.com,developers.googleblog.com"
 DAYS_LIMIT = "1460"
 LANG_THRESHOLD = "0.9"
+MIN_WORDS = "1000"
+MAX_WORDS = "4000"
