@@ -14,6 +14,7 @@ const DEFAULT_DOMAINS = [
   'shopify.engineering',
   'engineering.mongodb.com',
   'engineering.salesforce.com'
+
 ];
 
 const KEYWORDS = ['deep dive', 'case study', 'architecture', 'postmortem', 'lessons learned'];
@@ -49,7 +50,7 @@ export async function search(question, env) {
   const id = setTimeout(() => controller.abort(), 10000);
   const include_domains = env.ALLOWED_SITES?.split(',').map(s => s.trim()).filter(Boolean) || DEFAULT_DOMAINS;
   const body = {
-    query: question,
+    query,
     include_domains,
     days: parseInt(env.DAYS_LIMIT || '1460', 10),
     lang_threshold: parseFloat(env.LANG_THRESHOLD || '0.9'),
@@ -78,6 +79,7 @@ export async function search(question, env) {
       return { url: '<검색 실패>', reason: `http-${res.status}` };
     }
     const data = await res.json();
+
     const results = (data.results || []).filter(r => r.language === 'en' && r.url);
     console.log('tavily.filter', { total: data.results?.length || 0, english: results.length });
     const detailed = results.filter(r => {

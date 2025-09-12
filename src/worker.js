@@ -50,7 +50,22 @@ async function processCategory({ user_id, text, response_url, trigger_id }, env)
 }
 
 async function processSummary(data, env) {
-  const { userId, category, question, link, userConcept, userOral, userExpressions, userReflection, response_url } = data;
+  const {
+    userId,
+    category,
+    question,
+    link,
+    userConcept = '',
+    userOral = '',
+    userExpressions = '',
+    userReflection = '',
+    response_url
+  } = data;
+  if (!category || !question || !link) {
+    if (response_url) await sendResponseUrl(response_url, '오늘의 질문이 없습니다. `/카테고리`로 질문을 먼저 받아주세요.');
+    await logRequest(env.DB, { userId, path: '/slack/summary', method: 'POST', note: 'missing-data' });
+    return;
+  }
   try {
     const keywords = await extractKeywords(env, `${question}\n${userConcept}\n${userOral}\n${userExpressions}\n${userReflection}`);
     const date = kstDate();
