@@ -33,6 +33,10 @@ DAYS_LIMIT=1460
 LANG_THRESHOLD=0.9
 ```
 
+`ALLOWED_SITES` is optional; if omitted a default list of well known
+company engineering blogs (Netflix, Uber, Dropbox, Airbnb, Stripe,
+Google Cloud, AWS, Spotify and Meta) will be used.
+
 ## Deployment
 
 Apply `schema.sql` to the D1 database and deploy with Wrangler:

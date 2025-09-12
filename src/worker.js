@@ -12,6 +12,7 @@ async function processCategory({ user_id, text, response_url, trigger_id }, env)
   const category = (text || '').trim();
   const channel = env.CHANNEL_ID;
   const token = env.SLACK_BOT_TOKEN;
+  console.log('category start', userId, category);
   try {
     if (!category) {
       await openCategoryModal(token, trigger_id || '', Object.keys(QUESTIONS));
