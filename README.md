@@ -31,7 +31,23 @@ TAVILY_API_KEY
 ALLOWED_SITES
 DAYS_LIMIT=1460
 LANG_THRESHOLD=0.9
+MIN_WORDS=1000
+MAX_WORDS=4000
 ```
+
+`ALLOWED_SITES` is prepopulated with domains from a wide range of English
+corporate engineering blogs (Spotify, Netflix, Uber, Airbnb, Shopify, Slack,
+Cloudflare, Google, AWS, Microsoft, Spring, GitHub, LinkedIn, Meta, Confluent,
+HashiCorp, Databricks, Grafana, Datadog, Elastic, Kubernetes, Istio, NGINX,
+Redis, Dropbox, Stripe and Apple). Modify the comma-separated list in
+`wrangler.toml` to customize the sources that Tavily will search. Queries are
+expanded with intent keywords ("deep dive", "case study", "architecture",
+"postmortem", "lessons learned", "guide", "explanation", "best practices") and
+exclude release-style terms. Results are scored by URL path, language and
+domain. Candidate pages are fetched and discarded unless they contain 1,000–4,000
+words, several section headings, code snippets and at least one of the intent
+keywords. If no suitable article is found, the worker retries with advanced
+search depth and finally with a small set of fallback sources.
 
 ## Deployment
 
