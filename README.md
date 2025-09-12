@@ -31,6 +31,8 @@ TAVILY_API_KEY
 ALLOWED_SITES
 DAYS_LIMIT=1460
 LANG_THRESHOLD=0.9
+MIN_WORDS=1000
+MAX_WORDS=4000
 ```
 
 `ALLOWED_SITES` is optional; if omitted a default list of well known
